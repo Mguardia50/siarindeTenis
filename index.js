@@ -15,7 +15,7 @@ import aplicacion from "./app.js"
     const canchaFirebase = new daoCanchasTenis();
 
     //await tenistaMongo.agregarTenista(tenista);
-    //let tenistas = await tenistaMongo.listarTenistas(); //FUNCIONA
+    let tenistas = await tenistaMongo.listarTenistas(); //FUNCIONA
     
     //await tenisMongo.listarTenistas(3474851); //FUNCIONA
     //let canchas = await canchaFirebase.listarCanchaTenis(); //FUNCIONA

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Config from "../config.js";
 
+
 await mongoose.connect(Config.mongoDB.dbPath);
 
 export default class ContenedorMongoTenis {

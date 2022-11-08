@@ -7,6 +7,8 @@ class daoTenistas extends ContenedorMongoTenis {
             nombreTenista: String,
             apellidoTenista: String,
             dniTenista: {type: Number, unique: true},
+            mailTenista: String,
+            telefonoTenista: Number,
             categoria: String,
             posicion: Number   
         })

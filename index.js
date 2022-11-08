@@ -2,7 +2,7 @@ import daoTenistas from "./daos/daosTenis.js";
 import daoCanchasTenis from "./daos/daosCanchaTenis.js";
 import aplicacion from "./app.js"
 
-//aplicacion();
+aplicacion();
 
 
 

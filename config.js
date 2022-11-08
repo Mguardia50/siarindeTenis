@@ -21,5 +21,7 @@ const Config = {
     }
 
 }
+
+//console.log(Config.mongoDB.dbPath)
 //tSqDueI505FEVgtm
 export default Config;

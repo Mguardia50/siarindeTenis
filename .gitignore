@@ -2,3 +2,4 @@
 /.env
 /containers/.env
 /daos/.env
+/src/.env

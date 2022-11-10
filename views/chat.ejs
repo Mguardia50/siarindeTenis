@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
     
 
-        <!-- <form onsubmit="return enviarMensaje(this)"> -->
-        <form onsubmit="return enviarMensaje(this)">
+        <form id="formChatTenis" onsubmit="return enviarMensaje(this)">
             <p>Ingrese su mail</p>
             <input type="text" id="mail">
             <p>Nombre</p>
             <input type="text" id="nombre">
+            <p>Apellido</p>
+            <input type="text" id="apellido">
+            <p>Categoria</p>
+            <input type="text" id="categoria">
             <p>Mensaje</p>
             <input type="text" id="chat_mensaje">
             <br>
@@ -24,14 +24,10 @@
             <button id="btnEliminar">ELIMINAR TODOS LOS MSJ</button>
     </div>
     
-    
+    <h1>---------------------CHAT---------------------</h1>
     <div id="mensajes" class="contenedor_mensajes">
-        <h1>CHAT</h1>
+        
     </div>
-
-    <aside class="contenedor_productos" id="productContainer">
-        <h1>Contenedor ultra responsive</h1>
-    </aside>
 
 
     
@@ -39,63 +35,4 @@
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
-
-    <!-- <script src="./chat.js"></script> NO FUNCIONA POR MIME O ALGO ASI, AL DEMONIO LO HAGO ACA MISMO-->
-   
-   
-   <script type="module">
-
-
-        const socket = io.connect();
-
-
-            function render(data) {
-            alert("probando")
-                /*  const html = data
-                .map(
-                    (msg) => `
-                <div class="contenedor_msg">
-                
-                <p class="autor_msg"></p>
-                <p>PRUEBA</p>
-                </div>
-            `
-                )
-                .join(" "); 
-            
-                document.getElementById("mensajes").innerHTML = html; */
-            }
-            
-            
-            function enviarMensaje(event) {
-                
-                const nombre = document.getElementById("nombre").value;
-                const msj = document.getElementById("chat_mensaje").value;
-                const mail = document.getElementById("mail").value;
-                let verificador1 = mail.includes("@");
-                let verificador2 = mail.includes(".");
-                let verificador = verificador1 && verificador2;
-                document.getElementById("chat_mensaje").value = "";
-                //verificador==(false) ? alert("ingrese un mail valido....Y DECÍ QUE NO TE HAGO REGISTRARTE con todo el coso de usar el mail, 2factores y la uña del papa") : socket.emit("new_msg", { autor: nombre, msj: msj });
-                socket.emit("new_msg", { autor: nombre, msj: msj });
-                return false;
-            }
-
-            function eliminarMensajes(event) {
-
-                alert("probando")
-                /* socket.emit("eliminarTodo");
-                return false; */
-            }
-
-                let botonEliminar = document.getElementById("btnEliminar");
-                botonEliminar.addEventListener("click", eliminarMensajes);
-
-
-            socket.on("listaMensajes", (data) => {
-
-                render(data);
-            });
-
-    </script>
-</html>
+<script src="../src/chat.js"></script>

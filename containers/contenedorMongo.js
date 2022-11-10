@@ -19,7 +19,7 @@ export default class ContenedorMongoTenis {
             dni == null ? console.log(todos) : (
             tenistas == "" ? console.log("no existe tenista con ese DNI") : console.log(tenistas) 
             ) 
-            
+     
     }catch(e){
         throw new Error(e)
     }
@@ -30,6 +30,7 @@ export default class ContenedorMongoTenis {
     async agregarTenista(tenista){
         try{
             await this.col.create(tenista)
+          
         } catch(e){
             throw new Error(e);
         }
@@ -39,10 +40,12 @@ export default class ContenedorMongoTenis {
     async eliminarTenista(dni){
         await this.col.deleteOne({dniTenista: dni})
         console.log("eliminado: " + dni)
+
     }
 
     async modificarTenista(dni, remplazo){
         await this.col.updateOne({dniTenista: dni}, remplazo);
+     
     }
 }
 

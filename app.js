@@ -4,6 +4,8 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 import { createRequire } from "module";
 import daoChatTenis from './daos/daosMensajes.js';
+
+
 //import normalizar from './src/normalizador.js';
 
 //import http from "http"
@@ -39,7 +41,8 @@ let Mensajes= []
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.use(express.static(__dirname + "/public"));
+
+//app.use(express.static(__dirname + "/public"));
 
 
 

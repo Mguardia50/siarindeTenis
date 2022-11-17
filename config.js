@@ -17,7 +17,7 @@ const Config = {
       },
 
     mongoDB: {
-        "dbPath": process.env.MONGODBPATH
+        dbPath: process.env.MONGODBPATH
     }
 
 }

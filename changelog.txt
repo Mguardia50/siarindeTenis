@@ -1,3 +1,9 @@
+Siarinde Tenis V0.02
+-Ahora se registra usuario y password
+-Login mediante MongoDB
+-ERRROR: bad request en caso de un login nulo en vez de lo que tiene que retornar
+
+
 Siarinde Tenis V0.01
 
 -Se puede cargar y traer jugadores desde MongoDB

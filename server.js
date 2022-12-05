@@ -6,11 +6,10 @@ import daoUsuarios from "./daos/daosUsuario.js";
 import {fileURLToPath} from 'url';
 import path from 'path';
 import bodyParser from "body-parser"
-import MongoStore from "connect-mongo";
-import Config from "./config.js";
+import sesion from "./src/session.js";
 import bcrypt from "bcrypt"
-
-
+import { fork } from "child_process";
+import sysData from "./src/data.js";
 
 const app = express()
 app.use(express.urlencoded({extended: false}));
@@ -18,17 +17,7 @@ app.use(bodyParser.urlencoded({extended: false})); //esto es lo que me permite a
 app.use(passport.initialize());
 
 
-app.use(session({
-   
-    secret: "A1s2D3f4qWeRtY",
-
-    cookie: {maxAge: 1000 * 60},
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: Config.mongoDB.dbPath,
-    })
-}))
+app.use(session(sesion))
 
 
 app.use(passport.session());
@@ -38,14 +27,13 @@ app.use(express.json());
 
 const usuariosDao = new daoUsuarios();
 
-//DEBUG
+/* //DEBUG
 //const prueba = {UserMail: "otromas@coso.com", password: 1234}
 //const agregarUser= await usuariosDao.agregarUsuario(prueba);
 //const usuarios = await usuariosDao.buscarUsuario("coso@esto.com")
 //const user3 = await usuariosDao.buscarUser("coso@esteo.com") 
 //console.log("usuarios: " + usuarios) 
-
-/* const hash = bcrypt.hashSync("hols", 10)
+const hash = bcrypt.hashSync("hols", 10)
 const compare = await  bcrypt.compare("hols", hash);
 console.log( hash)
 console.log(compare) */
@@ -58,9 +46,6 @@ const authMW = (req, res, next) => {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const {pathname: root} = new URL (".", import.meta.url)
-
-
-
 
 
 //register
@@ -77,13 +62,9 @@ passReqToCallback: true
 
     const hash = bcrypt.hashSync(password, 10)
     await usuariosDao.agregarUsuario({UserMail: UserMail, password: hash});
-    
-     
 
-    
     const userObj = {UserMail, password}
     return done(null, userObj)
-    
 
 }))
 
@@ -94,8 +75,6 @@ passport.use('login', new localStrategy({
     passReqToCallback: true
     
     }, async (req, UserMail, password, done)=>{
-        
-        
 
         //const user = await usuariosDao.buscarUsuario(UserMail, password)
         
@@ -170,7 +149,44 @@ req.logOut();
 res.send("sesion cerrada")
 })
 
+app.get("/info", (req, res) =>{
+    
+    res.send(sysData)
+    })
 
-app.listen(8080, ()=>{
+const child = fork('fork.js')
+
+child.send("iniciando") 
+
+ child.on("message", msg => 
+
+    app.get("/api/random", (req, res) =>{
+
+        child.send(req.query) 
+        
+        console.log("el msg" + msg)
+        
+        res.send("el msg" + msg)
+        
+        })
+    
+    ); 
+
+   
+    /* app.get("/api/random", (req, res) =>{
+
+        child.send(req.query) 
+        
+        console.log("el msg" + msg)
+        
+        res.send("el msg" + msg)
+        
+        }) */
+
+
+
+
+const PORT = process.argv[2] || 8080
+app.listen(PORT, ()=>{
     console.log("iniciando")
 })

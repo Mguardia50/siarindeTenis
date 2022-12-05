@@ -11,6 +11,7 @@ import bcrypt from "bcrypt"
 import { fork } from "child_process";
 import sysData from "./src/data.js";
 
+
 const app = express()
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.urlencoded({extended: false})); //esto es lo que me permite acceder a los metodos post
@@ -156,21 +157,25 @@ app.get("/info", (req, res) =>{
 
 const child = fork('fork.js')
 
-child.send("iniciando") 
 
- child.on("message", msg => 
+app.get("/api/random", (req, res) =>{
 
-    app.get("/api/random", (req, res) =>{
+    const estaQuery = req.query
+    child.send(estaQuery.cant || 100000000 )
+            
+            //child.kill()
+/* child.on("message", final=>
 
-        child.send(req.query) 
+console.log(final)) */
+
+
+            res.send("ver la consola y que coder deje de joder con herramientas QUE NO PROPORCIONA, ademas, esto es inutil")
+            }
         
-        console.log("el msg" + msg)
+        )
         
-        res.send("el msg" + msg)
-        
-        })
     
-    ); 
+  
 
    
     /* app.get("/api/random", (req, res) =>{

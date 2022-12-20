@@ -1,6 +1,6 @@
 import express  from "express";
 import bodyParser from "body-parser"
-import { syncIndexes } from "mongoose";
+
 
 const app = express()
 app.use(express.urlencoded({extended: false}));

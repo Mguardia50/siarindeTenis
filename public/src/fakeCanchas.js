@@ -1,4 +1,4 @@
-import {faker} from "https://cdn.skypack.dev/@faker-js/faker"
+import {faker} from "https://cdn.skypack.dev/@faker-js/faker";
 
 
 faker.locale = "es"

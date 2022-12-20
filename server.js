@@ -10,21 +10,19 @@ import sesion from "./src/session.js";
 import bcrypt from "bcrypt"
 import { fork } from "child_process";
 import sysData from "./src/data.js";
-
+import logger from "./src/logger.js";
+import compression from "compression";
 
 const app = express()
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.urlencoded({extended: false})); //esto es lo que me permite acceder a los metodos post
 app.use(passport.initialize());
-
-
 app.use(session(sesion))
-
-
 app.use(passport.session());
 app.use(express.json());
 
-
+//solo para hacer los graficos del FUCKING desafio de m....
+app.use(compression());
 
 const usuariosDao = new daoUsuarios();
 
@@ -38,6 +36,8 @@ const hash = bcrypt.hashSync("hols", 10)
 const compare = await  bcrypt.compare("hols", hash);
 console.log( hash)
 console.log(compare) */
+
+
 
 const authMW = (req, res, next) => {
     req.isAuthenticated() ? next() : res.sendFile(__dirname + "/public/login.html")
@@ -107,19 +107,12 @@ passport.deserializeUser((user, done) =>{
 
 
 
-
-
-
-
-
-
-
-
 //datos
 
 app.get("/", authMW, (req, res) =>{
     res.sendFile(__dirname + "/public/index.html")
 })
+
 
 //post
 
@@ -161,12 +154,8 @@ const child = fork('fork.js')
 app.get("/api/random", (req, res) =>{
 
     const estaQuery = req.query
-    child.send(estaQuery.cant || 100000000 )
+    child.send(estaQuery.cant || 100000 )
             
-            //child.kill()
-/* child.on("message", final=>
-
-console.log(final)) */
 
 
             res.send("ver la consola y que coder deje de joder con herramientas QUE NO PROPORCIONA, ademas, esto es inutil")
@@ -174,24 +163,19 @@ console.log(final)) */
         
         )
         
-    
-  
 
-   
-    /* app.get("/api/random", (req, res) =>{
+app.use((req, res, next)=>{
 
-        child.send(req.query) 
-        
-        console.log("el msg" + msg)
-        
-        res.send("el msg" + msg)
-        
-        }) */
+    logger.info(`Request: ${req.method} at ${req.url}`)
+    next();
+})
 
-
-
+app.all('*', (req, res)=>{
+    logger.warn(`Failed request: ${req.method} at ${req.url}`)
+    res.send({error: true}).status(500);
+})
 
 const PORT = process.argv[2] || 8080
 app.listen(PORT, ()=>{
-    console.log("iniciando")
+    logger.info("iniciando en puerto " + PORT)
 })

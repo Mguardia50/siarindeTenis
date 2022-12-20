@@ -10,6 +10,9 @@ import daoChatTenis from './daos/daosMensajes.js';
 
 //import http from "http"
 //import { Server } from 'socket.io';
+
+
+
 const require = createRequire(import.meta.url);
 
 const fs = require('fs');
@@ -105,9 +108,10 @@ app.get('/tenis/chat', (req, res) =>{
 
 
 
-    server.listen(8080, ()=>{
+    /* server.listen(8080, ()=>{
         console.log("iniciando...")
-    })
+    }) */
 //}
 
 //export default aplicacion;
+

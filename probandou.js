@@ -268,7 +268,9 @@ app.get('/tenis/chat', (req, res) =>{
     res.send({error: true}).status(500);
 }) 
 
-const PORT = process.argv[2] || 8080;
-server.listen(PORT, ()=>{
-    logger.info("iniciando en puerto " + PORT)
+//no es process.env.port?
+const port = process.env.PORT || 8080;
+console.log(port)
+server.listen(port, ()=>{
+    logger.info("iniciando en puerto " + port)
 })

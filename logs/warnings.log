@@ -4341,3 +4341,4 @@
 [2022-12-20T13:16:35.650] [ERROR] default - Error, ver consola en /tenis/chat
 [2022-12-20T13:16:38.987] [ERROR] default - Error, ver consola en /tenis/canchas
 [2022-12-20T13:16:39.077] [WARN] default - Failed request: GET at /src/probando.js
+[2022-12-26T09:43:15.592] [WARN] default - Failed request: GET at /favicon.ico

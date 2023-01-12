@@ -1,3 +1,9 @@
+Siarinde Tenis V0.03
+-Se limpio el código: passport paso a un archivo JS y appTenis a otro
+-Se arreglo el logout
+
+
+
 Siarinde Tenis V0.02
 -Ahora se registra usuario y password
 -Login mediante MongoDB

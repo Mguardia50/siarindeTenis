@@ -15,10 +15,21 @@ export default class ContenedorMongoTenis {
 
         let tenistas = await this.col.find({dniTenista: dni})
         let todos = await this.col.find({})
+        let todosLosTenistas = []
 
-            dni == null ? console.log(todos) : (
+        if (dni == null){
+            todos.forEach(element=>{
+                todosLosTenistas.push(element)
+                //console.log(element)
+            })
+            return todosLosTenistas
+            
+        } else{
+                tenistas == "" ? console.log("no existe tenista con ese DNI") : console.log(tenistas)
+        }
+            /* dni == null ? console.log(todos) : (
             tenistas == "" ? console.log("no existe tenista con ese DNI") : console.log(tenistas) 
-            ) 
+            )  */
      
     }catch(e){
         throw new Error(e)

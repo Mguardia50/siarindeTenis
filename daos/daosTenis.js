@@ -22,4 +22,11 @@ class daoTenistas extends ContenedorMongoTenis {
     }
 }
 
+/* const daoTenix = new daoTenistas();
+const tenista = await daoTenix.listarTenistas();
+
+ tenista.forEach((element) => {
+    console.log(element)
+}) */
+
 export default daoTenistas

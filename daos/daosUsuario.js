@@ -8,7 +8,9 @@ class daoUsuarios extends ContenedorMongoTenis {
             
             UserMail: {type: String, unique: true},
             password: String,
-            
+            telefono: Number,
+            clave: Number,
+            verificado: Boolean
             
         })
     }
@@ -23,6 +25,8 @@ class daoUsuarios extends ContenedorMongoTenis {
         }
         
     }
+
+
 
     async buscarUsuario(mail, password){
         try{
@@ -39,16 +43,32 @@ class daoUsuarios extends ContenedorMongoTenis {
         }    
     }
 
+
     async buscarUser(mail){
         try{
 
             let user = await this.col.findOne({UserMail: mail})
             
-            const user2 = user.UserMail 
+            const user2 = {usuario: user.UserMail, clave: user.clave}
             console.log(user2)
         /* if (user == null){
             return user = "error"
         } */
+            return user2
+     
+        }catch(e){
+          
+            console.log("Usuario Registrado")
+
+        }    
+    }
+
+    async buscarPass(mail){
+        try{
+
+            let user = await this.col.findOne({UserMail: mail})
+            
+           
             return user
      
         }catch(e){
@@ -58,7 +78,19 @@ class daoUsuarios extends ContenedorMongoTenis {
         }    
     }
 
+    async modificarUsuario(usuario, remplazo){
+        try{
+            await this.col.updateOne({UserMail: usuario}, remplazo);
+      
+        } catch(e){
+            throw new Error(e);
+        }
+        
+    }
+
 
 }
 
-export default daoUsuarios
+const usuariosDao = new daoUsuarios()
+
+export default usuariosDao;

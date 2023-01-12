@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>CONFIRMACION DE USUARIO</h1>
+    <form action="/register/clave" method="PUT">
+        <p>Confirme su mail</p>
+        <input id="emailConfirm" type="text" name="emailConfirm">
+
+        <p>Telefono</p>
+        <input id="telefono" type="number" name="telefono">
+
+        Enviamos una clave a su correo de 6 digitos
+        <p>Clave</p>
+        <input id="clave" type="number" name="clave">
+       
+        <button style="margin: 3px">CONFIRMAR</button>
+    </form>
+    <button onclick="location.href='/login'" style="margin: 3px">LOGIN</button>
+</body>
+</html>

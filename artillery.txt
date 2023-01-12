@@ -1,1 +1,0 @@
-artillery quick --count 50 --num 20 http://localhost:8080/tenis/canchas --output server.txt

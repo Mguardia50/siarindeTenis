@@ -1,13 +1,30 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Document</title>
 </head>
 <body>
     <h1>TENISTAS</h1>
+    <% tenistas.forEach(tenista => { %>
+        <div class="fichaUsuario">
+            <div class="fotoUsuario">
+                FOTO
+            </div>
+            <div>
+                <h2><%= tenista.apellidoTenista %> <%= tenista.nombreTenista %></h2>
+                <h3>CATEGORIA: <%= tenista.categoria %></h3>
+                <h3>POSICION: <%= tenista.posicion %></h3>
+            </div>
+        </div>
+        <% }) %>
     <button onclick="location.href='/'">VOLVER</button>
 </body>
 </html>
+
+
+

@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import Config from "../config.js";
+import Config from "../config/config.js";
 
 
 //const db = admin.firestore();
@@ -19,9 +19,12 @@ export default class ContenedorCanchaTenis {
 
     async listarCanchaTenis(){
         try{
+            const canchasTenisArray = []
             const listar = await this.col.get()
-            listar.forEach(doc => console.log(doc.data()))
+   
+            listar.forEach(doc => canchasTenisArray.push(doc.data()))
             
+            return canchasTenisArray;
         } catch(e){
             throw new Error(e)
         }

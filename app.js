@@ -5,15 +5,16 @@ import {fileURLToPath} from 'url';
 import path from 'path';
 import bodyParser from "body-parser"
 import sesion from "./src/session.js";
-import sysData from "./src/data.js";
-import logger from "./src/logger.js";
+import sysData from "./src/config/data.js";
+import logger from "./src/utils/logger/logger.js";
 import { createRequire } from "module";
-import daoChatTenis from './daos/daosMensajes.js';
-import router from "./appTenis.js"
-import authMW from "./passport.js";
-import usuariosDao from "./daos/daosUsuario.js";
+import daoChatTenis from './src/daos/daosMensajes.js';
+import router from "./src/router/appTenis.js"
+import authMW from "./src/middleware/passport.js";
+import usuariosDao from "./src/daos/daosUsuario.js";
 import cluster from "cluster"
 import {cpus} from "os"
+import cookieParser from "cookie-parser";
 
 
 
@@ -45,6 +46,7 @@ app.use(passport.initialize());
 app.use(session(sesion))
 app.use(passport.session());
 
+app.use(cookieParser("mecomielbudinyculpealperro")) //segun la documentacion habia que poner un secreto 
 
 
     const allData = await daoChat.listarMensajes()
@@ -62,6 +64,12 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use('/tenis', authMW, router);
 
+app.get("/cualcax", (req, res) =>{
+    let grilla = 8
+    res.render('grilla',{ grilla
+
+    });
+})
 
 const {pathname: root} = new URL (".", import.meta.url)
 
@@ -87,7 +95,7 @@ app.post("/register/clave", (req, res)=>{
 })
 
 app.post("/login", passport.authenticate('login'), (req, res)=>{
-
+    res.cookie("mailUsuario", req.body.username)
     res.redirect("/")
 })
 

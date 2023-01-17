@@ -8,8 +8,8 @@ const transporter = createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-        user: 'katheryn.doyle@ethereal.email',
-        pass: 'sChU9T6Eu5rUKecpQn'
+        user: 'markus94@ethereal.email',
+        pass: 'AkNc5XjzWM9JCD9RWw'
     }
 });
 

@@ -76,3 +76,17 @@ p{
 .fotoUsuario{
     margin: 10px;
 }
+
+.boxNombreCancha{
+    color: black;
+    border: none;
+    font-size: larger;
+    font-weight: bold;
+    width: 600px;
+    height: fit-content;
+    text-align: justify;
+}
+
+.pBox{
+    margin: 3px;
+}

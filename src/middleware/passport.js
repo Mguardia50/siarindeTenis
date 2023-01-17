@@ -4,11 +4,11 @@ import passport from "passport";
 import express  from "express";
 import bodyParser from "body-parser"
 import session from "express-session";
-import sesion from "./src/session.js";
+import sesion from "../session.js";
 import {fileURLToPath} from 'url';
 import path from 'path';
-import enviarMail from "./src/nodemailer.js"
-import usuariosDao from "./daos/daosUsuario.js";
+import enviarMail from "../utils/mail/nodemailer.js"
+import usuariosDao from "../daos/daosUsuario.js";
 
 
 const app = express()
@@ -23,10 +23,25 @@ app.use(passport.initialize());
 app.use(session(sesion))
 app.use(passport.session());
 
-//const usuariosDao = new daoUsuarios();
 
- const authMW = (req, res, next) => {
-    req.isAuthenticated() ? next() : res.sendFile(__dirname + "/public/login.html")
+/*  const authMW = (req, res, next) => {
+    req.isAuthenticated() ? next() : res.sendFile('login.html',{'root': __dirname + "../../../public/"})
+
+}  */
+
+const authMW = async (req, res, next) => {
+    
+    if (req.isAuthenticated()){
+        const isVerified = req.user.verificado
+
+        if ((isVerified == false)){
+            res.sendFile('verificar.html',{'root': __dirname + "../../../public/"})
+        } else{
+            next();
+        }
+    } else {
+        res.sendFile('login.html',{'root': __dirname + "../../../public/"})
+    } 
 
 } 
 let b = 2
@@ -69,19 +84,20 @@ passport.use('register', new localStrategy({
         
         }, async (req, UserMail, password, done)=>{
             
-            //const user = await usuariosDao.buscarUsuario(UserMail, password)
-            
-            //const user = usuarios.find(user => user.UserMail== UserMail && user.password == password)
             const user2 = await usuariosDao.buscarPass(UserMail)  
+
+            if ( user2){
+
             const compare = await  bcrypt.compare(password, user2.password);
-            console.log(user2)
-            console.log(compare)
-    
+                        
             if(user2== "error") return done("Usuario inexistente")
             if (compare == false) return done("password incorrecto")
-            if ((user2.verificado == false)) return done("Usuario no verificado")
-            //if(user == "") return done("Contraseña inválida")
+            //if ((user2.verificado == false)) return done("Usuario no verificado")
+           
             return done (null, user2)
+            } else {
+                return done ("no existe tal usuario")
+            }
                
         }))
     
@@ -93,10 +109,10 @@ passport.use('register', new localStrategy({
     
     passport.deserializeUser((user, done) =>{
     
-        //const user = usuarios.find(user => user.UserMail == UserMail)
         done (null, user)
     
     })
 
 
 export default authMW;
+

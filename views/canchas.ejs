@@ -4,15 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Document</title>
 </head>
 <body>
     <h1>CANCHAS DE TENIS</h1>
-    <div id="canchasFake"></div>
+    
+        <% canchas.forEach(cancha => { %>
+            <form action="/tenis/canchas" method="POST">
+            <div class="fichaUsuario">
+                <h2 class="pBox">IMAGEN</h2>
+                <div>
+                    <input type="text" value="<%= cancha.nombre %>" readonly="readonly" class="boxNombreCancha" name="nombreCancha">
+                    <h3>SUPERFICIE: <%= cancha.superficie %></h3>
+                    <h3>DIRECCION: <%= cancha.direccion %></h3>
+                    <iframe <%= cancha.iframe %>></iframe>
+                </div>
+                <p class="pBox">Reservar por</p>
+                <input id="horasReserva" type="number" max="8" min="1" name= "horasReserva" class="pBox">
+                <p> horas</p>
+                <button style="margin: 3px" class="pBox">RESERVAR</button>
+            </div>
+            
+            </form>
+            <% }) %>
+    
     <button onclick="location.href='/'">VOLVER</button>
-</body>
 
-<script  type="module" src="../../../src/probando.js"></script> 
-<script type="module" src="../src/fakeCanchas.js"></script>
+    <p>Estupido google...me rechaza la conexion</p>
+                    <img src="https://th.bing.com/th/id/OIP.gZ7cRcTO3fbK8yyHQ0Uu9AAAAA?pid=ImgDet&rs=1" alt="">
+</body>
 
 </html>

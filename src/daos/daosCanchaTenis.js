@@ -12,4 +12,6 @@ class daoCanchasTenis extends ContenedorCanchaTenis {
     }
 }
 
-export default daoCanchasTenis
+const canchasTenisFB = new daoCanchasTenis();
+
+export default canchasTenisFB;

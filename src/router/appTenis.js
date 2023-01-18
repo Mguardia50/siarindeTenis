@@ -1,31 +1,31 @@
 import express  from "express";
-import daoTenistas from "../daos/daosTenis.js";
-import canchasTenisFB from "../daos/daosCanchaTenis.js";
+import daoTenistas from "../services/daos/daosTenis.js";
+import canchasTenisFB from "../services/daos/daosCanchaTenis.js";
 import cookieParser from "cookie-parser";
 import enviarMail from "../utils/mail/nodemailer.js";
 
 const {Router} = express;
 
-const router = Router();
+const routerTenis = Router();
 
 const daoJugadoresTenis = new daoTenistas();
 const tenistas = await daoJugadoresTenis.listarTenistas();
 const canchas = await canchasTenisFB.listarCanchaTenis();
 
 
-router.get('/tenistas', (req, res) =>{
+routerTenis.get('/tenistas', (req, res) =>{
     
     res.render('tenistas',{tenistas});
 })
 
-router.get('/canchas', (req, res) =>{
+routerTenis.get('/canchas', (req, res) =>{
 
   
         res.render('canchas',{canchas});
  
 })
 
-router.post('/canchas', (req,res) =>{
+routerTenis.post('/canchas', (req,res) =>{
     const mail = (req.cookies.mailUsuario);
     const nombreCancha = req.body.nombreCancha;
     const horasReserva = req.body.horasReserva;
@@ -34,7 +34,7 @@ router.post('/canchas', (req,res) =>{
     res.send("reservada")
 })
 
-router.get('/chat', (req, res) =>{
+routerTenis.get('/chat', (req, res) =>{
 
     //logger.error('Error, ver consola en ' + req.url)
 
@@ -43,4 +43,6 @@ router.get('/chat', (req, res) =>{
     });
 })
 
-export default router
+export default routerTenis
+
+

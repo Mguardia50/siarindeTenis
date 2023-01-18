@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import Config from "../config/config.js";
+import Config from "../../config/config.js";
 
 
 //const db = admin.firestore();

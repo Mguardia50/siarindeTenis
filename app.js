@@ -4,19 +4,18 @@ import passport from "passport";
 import {fileURLToPath} from 'url';
 import path from 'path';
 import bodyParser from "body-parser"
-import sesion from "./src/session.js";
-import sysData from "./src/config/data.js";
+import sesion from "./src/config/session.js";
 import logger from "./src/utils/logger/logger.js";
 import { createRequire } from "module";
-import daoChatTenis from './src/daos/daosMensajes.js';
-import router from "./src/router/appTenis.js"
+import daoChat from "./src/services/daos/daosMensajes.js"
 import authMW from "./src/middleware/passport.js";
-import usuariosDao from "./src/daos/daosUsuario.js";
 import cluster from "cluster"
 import {cpus} from "os"
 import cookieParser from "cookie-parser";
-
-
+import routerTenis from "./src/router/appTenis.js";
+import routerLogin from "./src/router/appLogin.js";
+import routerRegister from "./src/router/appRegister.js";
+import routerMisc from "./src/router/appMisc.js";
 
 const app = express();
 
@@ -31,12 +30,9 @@ const server = http.createServer(app);
 const io = require("socket.io")(server);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+const {pathname: root} = new URL (".", import.meta.url)
 
 let Mensajes= []
-
-    
-    const daoChat = new daoChatTenis()
    
 
 app.use(express.urlencoded({extended: true}));
@@ -52,8 +48,7 @@ app.use(cookieParser("mecomielbudinyculpealperro")) //segun la documentacion hab
     const allData = await daoChat.listarMensajes()
     io.on('connection',  socket =>{     
         socket.on('new_msg', (data)=>{
-            //aca es porque se va a agregar el msj a un array dentro de la DB cuando el mail existe
-           /* daoChat.modificarMensaje(data.mail, data.mensaje) ||*/  daoChat.agregarMensaje(data)      
+        daoChat.agregarMensaje(data)      
                 io.sockets.emit('listaMensajes', data, allData)
                 //io.sockets.disconnect()         
         })
@@ -62,96 +57,19 @@ app.use(cookieParser("mecomielbudinyculpealperro")) //segun la documentacion hab
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
-app.use('/tenis', authMW, router);
+app.use('/tenis', authMW, routerTenis);
+app.use("/register", routerRegister)
+app.use("/", routerLogin)
+app.use("/", routerMisc)
 
-app.get("/cualcax", (req, res) =>{
-    let grilla = 8
-    res.render('grilla',{ grilla
-
-    });
-})
-
-const {pathname: root} = new URL (".", import.meta.url)
-
-//datos
 
 app.get("/", authMW, (req, res) =>{
     res.sendFile(__dirname + "/public/index.html")
 })
 
-
-//post
-
-app.post("/register", passport.authenticate('register'), (req, res)=>{
-
-    res.redirect("/register/clave")
-})
-
-app.post("/register/clave", (req, res)=>{
-
-    
-    
-    res.redirect("/")
-})
-
-app.post("/login", passport.authenticate('login'), (req, res)=>{
-    res.cookie("mailUsuario", req.body.username)
-    res.redirect("/")
-})
-
-
-//logout
-
-app.get("/register", (req, res) =>{
-    res.sendFile(__dirname + "/public/register.html")
-})
-
- app.get("/register/clave", async (req, res) =>{
-
-    const {clave} = req.query 
-    const {emailConfirm} = req.query 
-   
-    const user = await usuariosDao.buscarUser(emailConfirm) || {usuario: null, clave: "undefined"};
-    console.log(user.clave)
-    if (clave == user.clave){
-        usuariosDao.modificarUsuario(user.usuario, {verificado: true})
-        console.log("verificado con exito")
-        res.redirect("/login")
-    }else{
-        if (user.clave=="undefined"){
-            res.sendFile(__dirname + "/public/clave.html")
-        }else{
-            res.sendFile(__dirname + "/public/claveMal.html")
-        }
-       
-        
-    }
-}) 
-
-app.get("/login", (req, res) =>{
-    res.sendFile(__dirname + "/public/login.html")
-})
-
-app.get("/logout", function(req, res, next) {
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/');
-    });
-  });
-
-app.get("/info", (req, res) =>{
-    
-    res.send(sysData)
-    })
-
- 
-
 app.use(express.static(__dirname + "/public"));
 
-
-
-
- app.all('*', (req, res)=>{
+app.all('*', (req, res)=>{
     logger.warn(`Failed request: ${req.method} at ${req.url}`)
     res.send({error: true}).status(500);
 }) 
@@ -160,18 +78,13 @@ const cpu = cpus();
 const port = process.env.PORT || 8080;
 if (cluster.isPrimary){
     console.log("primario: " + process.pid)
-
     for (let i = 0; i<cpu.length; i++){
         cluster.fork()
     }
-
-    
-
     cluster.on("exit", (worker, code, signil) =>{
         console.log("saliendo de " + worker.process.pid)
     })
 } else{
-
     console.log(port)
     server.listen(port, ()=>{
         logger.info("iniciando en puerto " + port)

@@ -51,12 +51,6 @@ class daoChatTenis extends ContenedorMongoTenis {
 
 }
 
-/* const mensajex = {autor: {mailTenista: "coso@nose.com", avatar: "queseyo", nombreTenista: "gustavo", apellidoTenista: "Kuerten"}, mensaje: "hola mundo"}
-
 const daoChat = new daoChatTenis()
-await daoChat.agregarMensaje(mensajex) */
 
-/* const daoChat = new daoChatTenis()
-await daoChat.modificarMensaje("cataplasma@coso.com", "modificando esto") */
-
-export default daoChatTenis
+export default daoChat;

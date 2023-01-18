@@ -1,5 +1,5 @@
 import MongoStore from "connect-mongo";
-import Config from "./config/config.js";
+import Config from "./config.js";
 
 const sesion = {
     secret: "A1s2D3f4qWeRtY",

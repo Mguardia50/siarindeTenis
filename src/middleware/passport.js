@@ -4,11 +4,11 @@ import passport from "passport";
 import express  from "express";
 import bodyParser from "body-parser"
 import session from "express-session";
-import sesion from "../session.js";
+import sesion from "../config/session.js";
 import {fileURLToPath} from 'url';
 import path from 'path';
 import enviarMail from "../utils/mail/nodemailer.js"
-import usuariosDao from "../daos/daosUsuario.js";
+import usuariosDao from "../services/daos/daosUsuario.js";
 
 
 const app = express()
@@ -24,10 +24,6 @@ app.use(session(sesion))
 app.use(passport.session());
 
 
-/*  const authMW = (req, res, next) => {
-    req.isAuthenticated() ? next() : res.sendFile('login.html',{'root': __dirname + "../../../public/"})
-
-}  */
 
 const authMW = async (req, res, next) => {
     

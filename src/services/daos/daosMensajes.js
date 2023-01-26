@@ -11,7 +11,7 @@ class daoChatTenis extends ContenedorMongoTenis {
             autor: {   
                 nombreTenista: String,
                 apellidoTenista: String,
-                categoria: String,
+                categoriaTenis: String,
             },
             mensaje: [String],  
             

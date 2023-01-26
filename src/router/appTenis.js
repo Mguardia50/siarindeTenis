@@ -3,6 +3,8 @@ import daoTenistas from "../services/daos/daosTenis.js";
 import canchasTenisFB from "../services/daos/daosCanchaTenis.js";
 import cookieParser from "cookie-parser";
 import enviarMail from "../utils/mail/nodemailer.js";
+import canchasDTO from "../services/DTO/canchas.dto.js";
+import reservaCanchasTenisFB from "../services/daos/doasReservas.js";
 
 const {Router} = express;
 
@@ -27,10 +29,14 @@ routerTenis.get('/canchas', (req, res) =>{
 
 routerTenis.post('/canchas', (req,res) =>{
     const mail = (req.cookies.mailUsuario);
+    let fecha = new Date()
     const nombreCancha = req.body.nombreCancha;
     const horasReserva = req.body.horasReserva;
+    const reservaDeCanchas = new canchasDTO ({nombreCancha, horasReserva, fecha})
+    console.log(reservaDeCanchas)
+    reservaCanchasTenisFB.agregarReserva({reserva: reservaDeCanchas});
     const text = ("se reservo correctamente " + nombreCancha + " " + horasReserva + "horas")
-    enviarMail("Reserva realizada para " + text,text, mail)
+    //enviarMail("Reserva realizada para " + text,text, mail)
     res.send("reservada")
 })
 

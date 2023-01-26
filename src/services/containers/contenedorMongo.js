@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
 import Config from "../../config/config.js";
+import { DAOFactory } from "../factory/DAOFactory.js";
 
 
 await mongoose.connect(Config.mongoDB.dbPath);
 
-export default class ContenedorMongoTenis {
+export default class ContenedorMongoTenis extends DAOFactory {
 
     constructor(coleccion, esquema){
+        super()
         this.col = mongoose.model(coleccion, esquema)
     }
 

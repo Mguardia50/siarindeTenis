@@ -51,8 +51,13 @@ export default class ContenedorMongoTenis extends DAOFactory {
     }
 
     async eliminarTenista(dni){
-        await this.col.deleteOne({dniTenista: dni})
-        console.log("eliminado: " + dni)
+        if (dni) {
+            await this.col.deleteOne({dniTenista: dni})
+            console.log("eliminado: " + dni)
+        } else {
+            console.log("dni inválido")
+        }
+        
 
     }
 

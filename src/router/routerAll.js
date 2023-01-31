@@ -12,6 +12,7 @@ import routerTenis from "./appTenis.js";
 import routerLogin from "./appLogin.js";
 import routerRegister from "./appRegister.js";
 import routerMisc from "./appMisc.js";
+import routerApi from "./appApi.js";
 
 const {Router} = express;
 const routerAll = Router()
@@ -29,9 +30,10 @@ routerAll.use(passport.initialize());
 routerAll.use(session(sesion))
 routerAll.use(passport.session());
 
+
 routerAll.use(cookieParser("mecomielbudinyculpealperro")) //segun la documentacion habia que poner un secreto 
 
-
+routerAll.use("/test", routerApi)
 routerAll.use('/tenis', authMW, routerTenis);
 routerAll.use("/register", routerRegister)
 routerAll.use("/", routerLogin)

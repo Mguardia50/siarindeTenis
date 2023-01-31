@@ -29,4 +29,7 @@ const tenista = await daoTenix.listarTenistas();
     console.log(element)
 }) */
 
-export default daoTenistas
+const daoJugadoresTenis = new daoTenistas();
+
+
+export default daoJugadoresTenis

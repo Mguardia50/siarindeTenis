@@ -51,6 +51,8 @@ class daoChatTenis extends ContenedorMongoTenis {
 
 }
 
-const daoChat = new daoChatTenis()
+ let daoChat = new daoChatTenis()
 
 export default daoChat;
+
+/* export default daoChatTenis; */

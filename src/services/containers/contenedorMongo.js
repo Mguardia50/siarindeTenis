@@ -1,14 +1,13 @@
 import mongoose from "mongoose";
 import Config from "../../config/config.js";
-import { DAOFactory } from "../factory/DAOFactory.js";
+
 
 
 await mongoose.connect(Config.mongoDB.dbPath);
 
-export default class ContenedorMongoTenis extends DAOFactory {
+export default class ContenedorMongoTenis {
 
     constructor(coleccion, esquema){
-        super()
         this.col = mongoose.model(coleccion, esquema)
     }
 
@@ -27,7 +26,7 @@ export default class ContenedorMongoTenis extends DAOFactory {
             return todosLosTenistas
             
         } else{
-                tenistas == "" ? console.log("no existe tenista con ese DNI") : console.log(tenistas)
+                tenistas == "" ? console.log("no existe tenista con ese DNI") : console.log("encontrado")
         }
             /* dni == null ? console.log(todos) : (
             tenistas == "" ? console.log("no existe tenista con ese DNI") : console.log(tenistas) 

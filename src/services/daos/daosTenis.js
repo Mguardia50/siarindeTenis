@@ -1,4 +1,5 @@
 import ContenedorMongoTenis from "../containers/contenedorMongo.js";
+import TenistasDTO from "../DTO/tenistas.dto.js";
 
 class daoTenistas extends ContenedorMongoTenis {
 
@@ -20,6 +21,13 @@ class daoTenistas extends ContenedorMongoTenis {
     async addCrypto() {
             //por ahora no
     }
+
+    /* async listarTenistas(){
+        const data = await super.listarTenistas();
+        //console.log(data)
+        
+        return new TenistasDTO(data)
+    } */
 }
 
 /* const daoTenix = new daoTenistas();
@@ -29,7 +37,9 @@ const tenista = await daoTenix.listarTenistas();
     console.log(element)
 }) */
 
-const daoJugadoresTenis = new daoTenistas();
+let daoJugadoresTenis = new daoTenistas();
 
 
 export default daoJugadoresTenis
+
+/* export default daoTenistas; */

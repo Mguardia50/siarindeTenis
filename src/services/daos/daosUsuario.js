@@ -91,6 +91,8 @@ class daoUsuarios extends ContenedorMongoTenis {
 
 }
 
-const usuariosDao = new daoUsuarios()
+let usuariosDao = new daoUsuarios()
 
 export default usuariosDao;
+
+/* export default daoUsuarios; */

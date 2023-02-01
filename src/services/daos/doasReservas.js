@@ -17,6 +17,8 @@ class daoReservaCanchasTenis extends ContenedorCanchaTenis {
     }
 }
 
-const reservaCanchasTenisFB = new daoReservaCanchasTenis();
+let reservaCanchasTenisFB = new daoReservaCanchasTenis();
 
 export default reservaCanchasTenisFB;
+
+/* export default daoReservaCanchasTenis; */

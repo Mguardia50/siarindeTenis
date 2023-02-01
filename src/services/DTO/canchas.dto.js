@@ -1,8 +1,10 @@
 class canchasDTO {
-    constructor({nombreCancha, horasReserva, fecha}){
-        this.canchaTenis = nombreCancha;
-        this.horaReserva = horasReserva;
-        this.dia= fecha;
+    constructor({nombre, ubicacion, iframe, direccion, superficie}){
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.iframe = iframe;
+        this.direccion = direccion;
+        this.superficie = superficie
     }
 }
 

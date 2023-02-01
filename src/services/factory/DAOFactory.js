@@ -1,4 +1,4 @@
-export class DAOFactory {
+/* export class DAOFactory {
 
     async agregarMensaje(){
         throw error ("metodo no creado....que ganas de joderme la vida con estas cosas que no me sirven")
@@ -12,4 +12,4 @@ export class DAOFactory {
     async modificarMensaje(){
         throw error ("metodo no creado....que ganas de joderme la vida con estas cosas que no me sirven")
     }
-}
+} */

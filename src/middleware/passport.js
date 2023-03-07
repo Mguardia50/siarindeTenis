@@ -28,14 +28,34 @@ app.use(passport.session());
 const authMW = async (req, res, next) => {
     
     if (req.isAuthenticated()){
-        const isVerified = req.user.verificado
-
+        const isVerified = req.user.verificado;
+      
         if ((isVerified == false)){
             res.sendFile('verificar.html',{'root': __dirname + "../../../public/"})
         } else{
+            
             next();
         }
     } else {
+        
+        res.sendFile('login.html',{'root': __dirname + "../../../public/"})
+    } 
+
+} 
+
+
+const authAdmin = async (req, res, next) => {
+    
+    if (req.isAuthenticated()){
+        const isVerified = req.user.verificado;
+        const isAdmin = req.user.isAdmin;
+        if ((isVerified == false)){
+            res.sendFile('verificar.html',{'root': __dirname + "../../../public/"})
+        } else{
+            isAdmin ? next() : res.send("no sos admin")
+        }
+    } else {
+        
         res.sendFile('login.html',{'root': __dirname + "../../../public/"})
     } 
 
@@ -49,7 +69,7 @@ passport.use('register', new localStrategy({
     
     }, async (req, UserMail, password, done)=>{
         
-    
+        const nombre = req.body.nombre
         const user2 = await usuariosDao.buscarUser(UserMail)  
     
         if (user2) return done ('usuario ya registrado') 
@@ -64,7 +84,7 @@ passport.use('register', new localStrategy({
         luego aqui: enviarWhatsapp(telefono)
         No lo quiero hacer por cuestiones de seguridad
         */
-        await usuariosDao.agregarUsuario({UserMail: UserMail, password: hash, clave: random, verificado: false});
+        await usuariosDao.agregarUsuario({UserMail: UserMail, password: hash, nombre: nombre, clave: random, verificado: false, isAdmin: false});
        
         const userObj = {UserMail, password}
         return done(null, userObj) 
@@ -110,5 +130,5 @@ passport.use('register', new localStrategy({
     })
 
 
-export default authMW;
+export {authMW, authAdmin};
 

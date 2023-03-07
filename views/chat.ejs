@@ -1,6 +1,6 @@
 
 <head>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <title>Document</title>
     
 </head>
@@ -8,8 +8,8 @@
     
 
         <form id="formChatTenis" onsubmit="return enviarMensaje(this)">
-            <p>Ingrese su mail</p>
-            <input type="text" id="mail">
+            <p>Usuario</p>
+            <input type="text" readonly value=<%= usuario %> id="mail">
             <p>Nombre</p>
             <input type="text" id="nombre">
             <p>Apellido</p>
@@ -21,7 +21,11 @@
             <br>
             <button id="btnEnviar">ENVIAR</button>
         </form>
+        <form onsubmit="return eliminarMensajes(this)">
+            <p>Esta funcion es para no colapsar MONGODB, en realidad no existirá</p>
             <button id="btnEliminar">ELIMINAR TODOS LOS MSJ</button>
+            <p>En caso de error de websocket refrezcar la página 2 o 3 veces</p>
+        </form> 
     </div>
     
     <h1>---------------------CHAT---------------------</h1>
@@ -34,5 +38,5 @@
     
 </body>
 
-<script src="../socket.io/socket.io.js"></script>
-<script src="../src/chat.js"></script>
+<script src="../../socket.io/socket.io.js"></script>
+<script src="../../src/chat.js"></script>

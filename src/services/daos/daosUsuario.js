@@ -6,10 +6,12 @@ class daoUsuarios extends ContenedorMongoTenis {
     constructor(){
         super("usuarios", {
             
+            nombre: String,
             UserMail: {type: String, unique: true},
             password: String,
             telefono: Number,
             clave: Number,
+            isAdmin: Boolean,
             verificado: Boolean
             
         })

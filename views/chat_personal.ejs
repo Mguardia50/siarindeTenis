@@ -1,0 +1,36 @@
+
+<head>
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Document</title>
+    
+</head>
+<body>
+    
+
+        <form id="formChatTenis" onsubmit="return enviarMensajePersonal(this)">
+            <p>De:</p>
+            <input type="text" readonly value=<%= remitente %> id="mailDe">
+            <p>Para:</p>
+            <input type="text" readonly value=<%= destinatario %> id="mailPara">
+            <p>Mensaje</p>
+            <input type="text" id="chat_mensaje">
+            <br>
+            <button id="btnEnviar">ENVIAR</button>
+        </form>
+
+    </div>
+    
+    <h1>---------------------CHAT---------------------</h1>
+ 
+        <% listaMensajesPersonales.forEach(msg => { %>
+                <div>
+                    <h4><%= msg.mailDe %>: <%= msg.mensaje %></h4>
+                </div>
+            <% }) %>
+   
+
+ 
+</body>
+
+<script src="../../socket.io/socket.io.js"></script>
+<script src="../../src/chat.js"></script>

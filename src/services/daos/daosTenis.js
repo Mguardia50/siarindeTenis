@@ -1,5 +1,5 @@
 import ContenedorMongoTenis from "../containers/contenedorMongo.js";
-import TenistasDTO from "../DTO/tenistas.dto.js";
+
 
 class daoTenistas extends ContenedorMongoTenis {
 
@@ -7,7 +7,8 @@ class daoTenistas extends ContenedorMongoTenis {
         super("usuariosTenis", {
             nombreTenista: String,
             apellidoTenista: String,
-            dniTenista: {type: Number, unique: true},
+            sexo: String,
+            usuario: {type: String, unique: true},
             mailTenista: String,
             telefonoTenista: Number,
             categoria: String,
@@ -15,31 +16,63 @@ class daoTenistas extends ContenedorMongoTenis {
         })
     }
 
-    async renderTenistas(){
-        
-    }
-    async addCrypto() {
-            //por ahora no
+    async listarTenistas(dni){
+        try{
+
+        let tenistas = await this.col.find({dniTenista: dni})
+        let todos = await this.col.find({})
+        let todosLosTenistas = []
+
+        if (dni == null){
+            todos.forEach(element=>{
+                todosLosTenistas.push(element)
+                //console.log(element)
+            })
+            return todosLosTenistas
+            
+        } else{
+                tenistas == "" ? console.log("no existe tenista con ese DNI") : console.log("encontrado")
+        }
+            /* dni == null ? console.log(todos) : (
+            tenistas == "" ? console.log("no existe tenista con ese DNI") : console.log(tenistas) 
+            )  */
+     
+    }catch(e){
+        throw new Error(e)
     }
 
-    /* async listarTenistas(){
-        const data = await super.listarTenistas();
-        //console.log(data)
         
-        return new TenistasDTO(data)
-    } */
+    }
+
+    async agregarTenista(tenista){
+        try{
+            await this.col.create(tenista)
+          
+        } catch(e){
+            throw new Error(e);
+        }
+        
+    }
+
+    async eliminarTenista(user){
+        if (user) {
+            await this.col.deleteOne({usuario: user})
+            console.log("eliminado: " + user)
+        } else {
+            console.log("dni inválido")
+        }
+        
+
+    }
+
+    async modificarTenista(user, remplazo){
+        await this.col.updateOne({usuario: user}, remplazo);
+     
+    }
+
 }
 
-/* const daoTenix = new daoTenistas();
-const tenista = await daoTenix.listarTenistas();
-
- tenista.forEach((element) => {
-    console.log(element)
-}) */
-
-let daoJugadoresTenis = new daoTenistas();
 
 
-export default daoJugadoresTenis
+export default daoTenistas;
 
-/* export default daoTenistas; */

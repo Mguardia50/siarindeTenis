@@ -13,6 +13,7 @@ class daoChatTenis extends ContenedorMongoTenis {
                 apellidoTenista: String,
                 categoriaTenis: String,
             },
+            timeStamp: String,
             mensaje: [String],  
             
         })
@@ -21,7 +22,7 @@ class daoChatTenis extends ContenedorMongoTenis {
     async agregarMensaje(mensaje){
         try{
             await this.col.create(mensaje)
-            console.log("cargao")
+            console.log("cargado")
       
         } catch(e){
             throw new Error(e);
@@ -46,6 +47,17 @@ class daoChatTenis extends ContenedorMongoTenis {
         await this.col.updateOne( {mailTenista: mail}, {$push: {mensaje: [msg]}});
         let todos = await this.col.find({mailTenista: mail})
         console.log (todos + "modificao")
+   
+    }
+
+    async eliminarMensajes(){
+        try{
+            await this.col.deleteMany({})
+            console.log("eliminados todos los msj")
+        
+    }catch(e){
+        throw new Error(e)
+    }
    
     }
 

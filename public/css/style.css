@@ -1,5 +1,5 @@
 h1{
-    background-color: red;
+    background-color: lightgreen;
 }
 
 .contenedor_msg{
@@ -79,6 +79,7 @@ p{
 
 .boxNombreCancha{
     color: black;
+    background-color: transparent;
     border: none;
     font-size: larger;
     font-weight: bold;
@@ -90,3 +91,26 @@ p{
 .pBox{
     margin: 3px;
 }
+
+body{
+    background-image: linear-gradient(green, white, white, white, white, white);
+}
+
+.grillaTenisCanchas{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 100px;
+}
+
+.fichaCancha{
+    display: flex;
+    padding: 3px;
+    border: 2px solid black;
+}
+
+.formModify{
+    margin-left: 10px;
+}
+

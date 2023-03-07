@@ -15,12 +15,12 @@ routerMisc.get("/info", (req, res) =>{
     res.send(sysData)
     })
 
-/* app.get("/cualcax", (req, res) =>{
+routerMisc.get("/cualcax", (req, res) =>{
     let grilla = 8
     res.render('grilla',{ grilla
 
     });
-}) */
+}) 
 
 
 export default routerMisc;

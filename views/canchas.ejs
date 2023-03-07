@@ -4,35 +4,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <title>Document</title>
 </head>
 <body>
     <h1>CANCHAS DE TENIS</h1>
     
         <% canchas.forEach(cancha => { %>
-            <form action="/tenis/canchas" method="POST">
-            <div class="fichaUsuario">
-                <h2 class="pBox">IMAGEN</h2>
-                <div>
-                    <input type="text" value="<%= cancha.nombre %>" readonly="readonly" class="boxNombreCancha" name="nombreCancha">
-                    <h3>SUPERFICIE: <%= cancha.superficie %></h3>
-                    <h3>DIRECCION: <%= cancha.direccion %></h3>
-                    <iframe <%= cancha.iframe %>></iframe>
+            <div class=<%= (isAdmin ? "fichaCancha" : "")%>>
+                <form action="/deporte/tenis/canchas" method="POST">
+                <div class="fichaUsuario">
+                    <div>
+                        <h2 class="pBox">IMAGEN</h2>
+                        <h2 class="pBox">(BLOB EN DB)</h2>
+                    </div>
+                    <div>
+                        <input type="text" value="<%= cancha.nombre %>" readonly="readonly" class="boxNombreCancha" name="nombreCancha">
+                        <h3>SUPERFICIE: <%= cancha.superficie %></h3>
+                        <h3>DIRECCION: <%= cancha.direccion %></h3>
+                        <%- cancha.iframe %>
+                        
+                    </div>
+                    <p class="pBox">Reservar por</p>
+                    <input id="horasReserva" type="number" max="8" min="1" name= "horasReserva" class="pBox">
+                    <p> horas</p>
+                    <button style="margin: 3px" class="pBox">RESERVAR</button>
                 </div>
-                <p class="pBox">Reservar por</p>
-                <input id="horasReserva" type="number" max="8" min="1" name= "horasReserva" class="pBox">
-                <p> horas</p>
-                <button style="margin: 3px" class="pBox">RESERVAR</button>
+                </form>
+                <%if (isAdmin == true){%>
+                    <form action="/admin/canchas/api/modify" class= "formModify" method="PUT">
+                        <p>CANCHA</p>
+                        <input id="nombre" type="text" readonly name="nombre" value= <%= cancha.nombre %>>
+                        <p>DIRECCION</p>
+                        <input id="direccion" type="text" name="direccion">
+                        <p>SUPERFICIE</p>
+                        <input id="superficie" type="text" name="superficie">
+                        <p>IFRAME</p>
+                        <input id="iframe" type="text" name="iframe">
+                        <br>
+                        <button style="margin: 3px">ENVIAR</button>
+                    </form>
+                <% } %>
             </div>
-            
-            </form>
             <% }) %>
     
     <button onclick="location.href='/'">VOLVER</button>
+    
+    <%if (isAdmin == true){%>
+        <h1>AGREGAR CANCHA DE TENIS</h1>
+        <p>Por el momento no llegue, así que solo la agrega el admin</p>
+        <p>La idea es que cualquiera pueda completar un formulario y un admin solo tendra que aceptar</p>
+        <p>En un futuro, un ejecutivo de cuentas se tendra que poner en contacto mediante mail o telefono para negociar y vender</p>
+        <form action="/admin/canchas/api" method="POST">
+            <p>CANCHA</p>
+            <input id="nombre" type="text" name="nombre" >
+            <p>DIRECCION</p>
+            <input id="direccion" type="text" name="direccion">
+            <p>SUPERFICIE</p>
+            <input id="superficie" type="text" name="superficie">
+            <p>IFRAME</p>
+            <input id="iframe" type="text" name="iframe">
+            <br>
+            <button style="margin: 3px">ENVIAR</button>
+        </form>
+    <% } %>
 
-    <p>Estupido google...me rechaza la conexion</p>
-                    <img src="https://th.bing.com/th/id/OIP.gZ7cRcTO3fbK8yyHQ0Uu9AAAAA?pid=ImgDet&rs=1" alt="">
 </body>
 
 </html>

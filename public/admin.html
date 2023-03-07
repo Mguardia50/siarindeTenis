@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="location.href='/admin/tenistas/api'">TENISTAS</button>
+    <button onclick="location.href='/admin/canchas/api'">CANCHAS</button>
+    <h1>AGREGAR CANCHAS DE TENIS</h1>
+    <form action="/admin/canchas/api" method="POST">
+        <p>CANCHA</p>
+        <input id="nombre" type="text" name="nombre">
+        <p>DIRECCION</p>
+        <input id="direccion" type="text" name="direccion">
+        <p>SUPERFICIE</p>
+        <input id="superficie" type="text" name="superficie">
+        <p>IFRAME</p>
+        <input id="iframe" type="text" name="iframe">
+        <br>
+        <button style="margin: 3px">ENVIAR</button>
+    </form>
+    <h1>ELIMINAR CANCHAS DE TENIS</h1>
+    <form action="/admin/canchas/api/delete" method="POST">
+        <p>CANCHA</p>
+        <input id="nombre" type="text" name="nombre">
+        <br>
+        <button style="margin: 3px">ENVIAR</button>
+    </form>
+</body>
+</html>

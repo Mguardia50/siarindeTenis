@@ -1,15 +1,55 @@
-/* export class DAOFactory {
+import daoCanchasTenis from "../daos/daosCanchaTenis.js";
+import daoTenistas from "../daos/daosTenis.js";
 
-    async agregarMensaje(){
-        throw error ("metodo no creado....que ganas de joderme la vida con estas cosas que no me sirven")
+/* import daoChatTenis from "../daos/daosMensajes.js";
+
+import daoUsuarios from "../daos/daosUsuario.js";
+import daoReservaCanchasTenis from "../daos/doasReservas.js"; */
+
+let canchasTenisDao;
+let chatTenisDao;
+let tenistasDao;
+let usuariosDao;
+let reservaCanchasTenisDao;
+
+const option = process.argv[2] || 'DB'
+switch(option){
+    case "Mongo":
+        chatTenisDao = new daoChatTenis();
+        tenistasDao = new daoTenistas();
+        usuariosDao = new daoUsuarios();
+    break;
+    case "Firebase":
+        canchasTenisDao = new daoCanchasTenis();
+        reservaCanchasTenisDao = new daoReservaCanchasTenis();
+    break;
+    default:
+        /* chatTenisDao = new daoChatTenis();
         
-    }
+        usuariosDao = new daoUsuarios(); */
+        tenistasDao = new daoTenistas();
+        canchasTenisDao = new daoCanchasTenis();
+        /* reservaCanchasTenisDao = new daoReservaCanchasTenis(); */
+    break;
+}
 
-    async listarMensajes(){
-        throw error ("metodo no creado....que ganas de joderme la vida con estas cosas que no me sirven")
-    }
+class daoFactory {
+    /* static getChatTenisDao(){
+        return chatTenisDao;
+    } 
+    
+    static getUsuariosDao(){
+        return usuariosDao;
+    } 
+    static getReservasCanchasTenisDao(){
+        return reservaCanchasTenisDao;
+    }  */
+    static getCanchasTenisDao(){
+        return canchasTenisDao;
+    } 
+    static getTenistasDao(){
+        return tenistasDao;
+    } 
+} 
 
-    async modificarMensaje(){
-        throw error ("metodo no creado....que ganas de joderme la vida con estas cosas que no me sirven")
-    }
-} */
+export {canchasTenisDao, tenistasDao}

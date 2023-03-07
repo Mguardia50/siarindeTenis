@@ -6,7 +6,7 @@ describe("test siarindeTenis", () =>{
     
     it("should list all tennis players", ()=> {
         request(app)
-        .get("/test/tenistas/api")
+        .get("/admin/tenistas/api")
         .expect(200)
         .end((err, res)=>{
             if (err) throw err
@@ -16,7 +16,7 @@ describe("test siarindeTenis", () =>{
     
     it("should post tenis player", ()=> {
         request(app)
-        .post("/test/tenistas/api")
+        .post("/admin/tenistas/api")
         .expect(200)
         .end((err, res)=>{
             if (err) throw err
@@ -26,7 +26,7 @@ describe("test siarindeTenis", () =>{
 
     it("should delete tenis player", ()=> {
         request(app)
-        .delete("/test/tenistas/api")
+        .delete("/admin/tenistas/api")
         .expect(200)
         .end((err, res)=>{
             if (err) throw err
@@ -35,7 +35,7 @@ describe("test siarindeTenis", () =>{
     }) 
     it("should modify tenis player", ()=> {
         request(app)
-        .put("/test/tenistas/api")
+        .put("/admin/tenistas/api")
         .expect(200)
         .end((err, res)=>{
             if (err) throw err

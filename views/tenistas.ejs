@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <title>Document</title>
 </head>
 <body>
@@ -13,9 +13,14 @@
     <% tenistas.forEach(tenista => { %>
         <div class="fichaUsuario">
             <div>
+                <form action="/deporte/tenis/chatPersonal" method="PUT">
                 <h2><%= tenista.apellidoTenista %> <%= tenista.nombreTenista %></h2>
                 <h3>CATEGORIA: <%= tenista.categoria %></h3>
                 <h3>POSICION: <%= tenista.posicion %></h3>
+                    <input id="destinatario" readonly value=<%= tenista.usuario %> type="text" name="destinatario" >
+                    <br>
+                    <button style="margin: 3px">CHAT</button>
+                </form>
             </div>
         </div>
         <% }) %>

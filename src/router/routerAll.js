@@ -6,7 +6,8 @@ import path from 'path';
 import bodyParser from "body-parser"
 import sesion from "../config/session.js";
 import logger from "../config/logger.js";
-import authMW from "../middleware/passport.js";
+import {authMW, authAdmin} from "../middleware/passport.js";
+
 import cookieParser from "cookie-parser";
 import routerTenis from "./appTenis.js";
 import routerLogin from "./appLogin.js";
@@ -33,19 +34,21 @@ routerAll.use(passport.session());
 
 routerAll.use(cookieParser("mecomielbudinyculpealperro")) //segun la documentacion habia que poner un secreto 
 
-routerAll.use("/test", routerApi)
-routerAll.use('/tenis', authMW, routerTenis);
+routerAll.use("/admin", authAdmin, routerApi)
+routerAll.use('/deporte/tenis', authMW, routerTenis);
 routerAll.use("/register", routerRegister)
 routerAll.use("/", routerLogin)
 routerAll.use("/", routerMisc)
 
 
 routerAll.get("/", authMW, (req, res) =>{
+    
     res.sendFile('index.html',{'root': __dirname + "../../../public/"})
 })
 
 
 routerAll.all('*', (req, res)=>{
+    
     logger.warn(`Failed request: ${req.method} at ${req.url}`)
     res.send({error: true}).status(500);
 }) 

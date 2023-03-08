@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.489fe0d8.css",
-    "main.js": "/static/js/main.2174087a.js",
+    "main.js": "/static/js/main.03716302.js",
     "static/js/787.fe4f1641.chunk.js": "/static/js/787.fe4f1641.chunk.js",
     "static/media/logo.png": "/static/media/logo.8440ce8075e26211649e.png",
     "static/media/canchas.png": "/static/media/canchas.e03e616a4fce0f3e5be4.png",
@@ -9,11 +9,11 @@
     "static/media/tenisSingle.png": "/static/media/tenisSingle.f46925bd449670558888.png",
     "index.html": "/index.html",
     "main.489fe0d8.css.map": "/static/css/main.489fe0d8.css.map",
-    "main.2174087a.js.map": "/static/js/main.2174087a.js.map",
+    "main.03716302.js.map": "/static/js/main.03716302.js.map",
     "787.fe4f1641.chunk.js.map": "/static/js/787.fe4f1641.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.489fe0d8.css",
-    "static/js/main.2174087a.js"
+    "static/js/main.03716302.js"
   ]
 }

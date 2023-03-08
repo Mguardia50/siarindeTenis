@@ -6099,3 +6099,4 @@
 [2023-03-07T11:27:08.212] [WARN] default - Failed request: GET at /r
 [2023-03-07T11:27:34.436] [WARN] default - Failed request: GET at /deporte/tenis
 [2023-03-08T10:04:05.016] [WARN] default - Failed request: GET at /deporte/tenis
+[2023-03-08T11:06:43.715] [WARN] default - Failed request: GET at /index

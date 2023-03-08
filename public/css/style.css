@@ -54,6 +54,11 @@ main{
     height: 70px;
 }
 
+#chat_mensaje_personal{
+    width: 400px;
+    height: 70px;
+}
+
 .productList{
     width: 100%;
     display: flex;

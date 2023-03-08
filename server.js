@@ -1,47 +1,17 @@
 import { createRequire } from "module";
 import {cpus} from "os"
 import cluster from "cluster"
-import app from "./app.js"
-import daoChat from "./src/services/daos/daosMensajes.js"
-import chatTenisPersonal from "./src/services/daos/daosMensajesPersonales.js";
+import server from "./io.js";
 
-const require = createRequire(import.meta.url);
+/* const require = createRequire(import.meta.url);
 const fs = require('fs');
 const fsPromise = fs.promises;
 
 const http = require ('http');
 const server = http.createServer(app);
-const io = require("socket.io")(server);
+const io = require("socket.io")(server); */
 
-const allData = await daoChat.listarMensajes()
-    await io.on('connection',  socket =>{     
-        socket.on('new_msg', (data)=>{
-        daoChat.agregarMensaje(data)      
-                io.sockets.emit('listaMensajes', data, allData)
-                /* io.sockets.disconnect() */   
-        })
 
-    }) 
-
-    await io.on('connection', socket =>{     
-       
-        socket.on('new_msg_personal', (data)=>{
-            console.log("la data es: " + data)
-            //chatTenisPersonal.agregarMensaje(data)     
-                io.sockets.emit('listaMensajes', data, allData)
-                /* io.sockets.disconnect() */   
-        })
-
-    }) 
-
-    await io.on('connection',  socket =>{     
-
-        socket.on('eliminarTodo', ()=>{
-            daoChat.eliminarMensajes();    
-                    io.sockets.emit('deleteMensajes')
-                    
-            })
-    }) 
 
 
     

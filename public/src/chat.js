@@ -2,18 +2,11 @@
 
 
 
-        const socket = io.connect();
+        const socket = io.connect( {transports: ['websocket']});
         let i = 0;
 
-        function render(data, allData) {
-            
-            if (i==0){
-                allData.forEach(element => {
-                //document.getElementById("mensajes").innerHTML += allData.autor;
-                document.getElementById("mensajes").innerHTML += `<p class="autor_msg" style="bolder">${(element.autor.nombreTenista)} ${element.autor.apellidoTenista}: ${element.mensaje}</p>`;
-            });
-            i=1 //SI ACTUALIZAMOS LA PAG NO FUNCIONA BIEN, TENDRIA QUE CARGAR TODO DE NUEVO CON UN MIDLEWORK
-        }
+        function render(data) {
+    
            
             document.getElementById("mensajes").innerHTML += `<p class="autor_msg" style="bolder">${data.autor.nombreTenista} ${data.autor.apellidoTenista}: ${data.mensaje}</p>`;
         }
@@ -50,33 +43,9 @@
                 timeStamp: Date(),
                 mensaje: msj
             });
-            return false; 
+            return false; //esto seria el prevent default
         }
 
-        function enviarMensajePersonal(event) {
-            
-            
-            const msj = document.getElementById("chat_mensaje").value;
-            const mailDe = document.getElementById("mailDe").value;
-            const mailPara = document.getElementById("mailPara").value;
-
-            let verificador1 = mail.includes("@");
-            let verificador2 = mail.includes(".");
-            let verificador = verificador1 && verificador2;
-            document.getElementById("chat_mensaje").value = "";
-            //verificador==(false) ? alert("ingrese un mail valido....Y DECÍ QUE NO TE HAGO REGISTRARTE con todo el coso de usar el mail, 2factores y la uña del papa") : socket.emit("new_msg", { autor: nombre, msj: msj });
-            
-            
-            
-            socket.emit("new_msg_personal", { 
-                
-                mailDe: mailDe,
-                mailPara: mailPara,
-                timeStamp: Date(),
-                mensaje: msj
-            });
-            return false; 
-        }
 
         function eliminarMensajes(event) {
 
@@ -92,9 +61,9 @@
             botonEliminar.addEventListener("click", eliminarMensajes()); */
 
 
-        socket.on("listaMensajes", (data, allData) => {
+        socket.on("listaMensajes", (data) => {
 
-            render(data, allData);
+            render(data);
         });
 
         socket.on("deleteMensajes", () => {

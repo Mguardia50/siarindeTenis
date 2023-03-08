@@ -7,30 +7,35 @@
 <body>
     
 
-        <form id="formChatTenis" onsubmit="return enviarMensajePersonal(this)">
+        <form id="formChatTenis" onsubmit="return msgPersonal(this)">
             <p>De:</p>
             <input type="text" readonly value=<%= remitente %> id="mailDe">
             <p>Para:</p>
             <input type="text" readonly value=<%= destinatario %> id="mailPara">
             <p>Mensaje</p>
-            <input type="text" id="chat_mensaje">
+            <input type="text" id="chat_mensaje_personal">
             <br>
-            <button id="btnEnviar">ENVIAR</button>
+            <button id="btnEnviarPersonal">ENVIAR</button>
         </form>
 
     </div>
     
     <h1>---------------------CHAT---------------------</h1>
- 
+    <div id="mensajesP">
         <% listaMensajesPersonales.forEach(msg => { %>
+            <% msg.mensaje.forEach(element => { %>
                 <div>
-                    <h4><%= msg.mailDe %>: <%= msg.mensaje %></h4>
+                    <% if ((msg.mailDe == remitente || msg.mailPara == remitente)
+                    && (msg.mailDe == destinatario || msg.mailPara == destinatario))  { %>
+                    <h4><%= msg.mailDe %>: <%= element.mensaje %></h4>
+                    <% } %>
                 </div>
             <% }) %>
-   
+            <% }) %>
+    </div>
 
  
 </body>
 
 <script src="../../socket.io/socket.io.js"></script>
-<script src="../../src/chat.js"></script>
+<script src="../../src/chatPersonal.js"></script>

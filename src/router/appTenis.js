@@ -9,6 +9,7 @@ import CanchastenisRepository from "../services/repositories/canchasTenis.repo.j
 import tenistasRepository from "../services/repositories/tenistas.repo.js";
 import ChatTenisPersonal from "../services/daos/daosMensajesPersonales.js";
 import sesion from "../config/session.js";
+import daoChat from "../services/daos/daosMensajes.js";
 
 const {Router} = express;
 
@@ -59,12 +60,12 @@ routerTenis.post('/canchas', async (req,res) =>{
     res.send("reservada " + text)
 })
 
-routerTenis.get('/chat', (req, res) =>{
-
+routerTenis.get('/chat', async (req, res) =>{
+    const listarMsg = await daoChat.listarMensajes()
     //logger.error('Error, ver consola en ' + req.url)
     const usuario = req.user.UserMail
    
-    res.render('chat',{ usuario
+    res.render('chat',{ usuario, listarMsg
        
     });
 })
@@ -73,7 +74,6 @@ routerTenis.get('/chatPersonal', async (req, res) =>{
     try {
         const remitente = req.user.UserMail;
         const destinatario = req.query.destinatario;
-        console.log(remitente + " " + destinatario)
         const listaMensajesPersonales = await ChatTenisPersonal.listarMensajes(remitente, destinatario)
         res.render('chat_personal',{ remitente, destinatario, listaMensajesPersonales
            

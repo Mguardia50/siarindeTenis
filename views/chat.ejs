@@ -10,11 +10,11 @@
         <form id="formChatTenis" onsubmit="return enviarMensaje(this)">
             <p>Usuario</p>
             <input type="text" readonly value=<%= usuario %> id="mail">
-            <p>Nombre</p>
-            <input type="text" id="nombre">
-            <p>Apellido</p>
+            <p>X Nombre (se carga a la DB, pero por ahora no tiene funcion alguna)</p>
+            <input type="text" id="nombre" >
+            <p>X Apellido (se carga a la DB, pero por ahora no tiene funcion alguna)</p>
             <input type="text" id="apellido">
-            <p>Categoria</p>
+            <p>X Categoria (se carga a la DB, pero por ahora no tiene funcion alguna)</p>
             <input type="text" id="categoria">
             <p>Mensaje</p>
             <input type="text" id="chat_mensaje">
@@ -30,7 +30,11 @@
     
     <h1>---------------------CHAT---------------------</h1>
     <div id="mensajes" class="contenedor_mensajes">
-        
+        <% listarMsg.forEach(msg => { %>
+            <div>
+                <h4><%= msg.mailTenista %>: <%= msg.mensaje %></h4>
+            </div>
+        <% }) %>
     </div>
 
 

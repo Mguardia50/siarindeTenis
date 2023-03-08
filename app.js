@@ -3,6 +3,8 @@ import {fileURLToPath} from 'url';
 import path from 'path';
 import { createRequire } from "module";
 import routerAll from "./src/router/routerAll.js";
+
+
 const app = express();
 
 //Para poder usar require
